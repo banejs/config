@@ -1,0 +1,53 @@
+{
+  "name": "@banejs/config",
+  "version": "1.0.0",
+  "description": "BaneJS Config",
+  "scripts": {
+    "test": "npm run typecheck && npm run tslint && npm run jest",
+    "typecheck": "tsc --noEmit",
+    "tslint": "tslint --project tsconfig.json --format stylish",
+    "jest": "jest --coverage --detectOpenHandles --passWithNoTests",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
+    "release": "npm run test && npm run release:tag && npm run release:push",
+    "release:tag": "git tag v$npm_package_version",
+    "release:push": "git push && git push --tags",
+    "build": "npm run build:clean && npm run build:types && npm run build:js && npm run build:copy && npm run build:copy-types",
+    "build:clean": "rm -rf ./build",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir build --extensions \".ts,.tsx\"",
+    "build:copy": "cp ./package.json README.md CHANGELOG.md LICENSE build",
+    "build:copy-types": "cp ./src/@types/configs-overload.d.ts build/@types"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/banejs/config.git"
+  },
+  "keywords": [
+    "banejs",
+    "config",
+    "typescript"
+  ],
+  "author": "Anton Drobot",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/banejs/config/issues"
+  },
+  "homepage": "https://github.com/banejs/config#readme",
+  "devDependencies": {
+    "@babel/cli": "~7.7.7",
+    "@babel/core": "~7.7.7",
+    "@babel/preset-env": "~7.7.7",
+    "@babel/preset-typescript": "~7.7.7",
+    "@types/jest": "~24.0.25",
+    "@types/node": "~12.12.22",
+    "babel-jest": "~24.9.0",
+    "conventional-changelog-cli": "~2.0.31",
+    "husky": "~3.1.0",
+    "jest": "~24.9.0",
+    "tslint": "~5.20.1",
+    "typescript": "~3.7.4"
+  },
+  "dependencies": {
+    "configs-overload": "~0.2.0"
+  }
+}
